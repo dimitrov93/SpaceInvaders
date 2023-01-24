@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    color: lightgrey;
+    margin: 0px 150px;
+}
+
+h1 {
+    justify-content: center;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
