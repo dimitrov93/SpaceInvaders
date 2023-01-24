@@ -14,3 +14,48 @@ h1 {
     justify-content: space-between;
 }
 
+
+/* .box {
+    height: 250px;
+    width: 300px;
+    background: url(../assets/spriteSheet.jpg);
+    object-fit: none;
+
+    object-position: 300px 425px;
+} */
+
+.box {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+#firstSprite {
+    width:113px;
+    height: 60px;
+    object-fit:none;
+    object-position: -10px -110px;
+}
+
+#secondSprite {
+    width:150px;
+    height: 60px;
+    object-fit:none;
+    object-position: 0px -10px;
+    position: relative;
+    top: 0px;
+    left: 50%;
+    transform: translate(-60%,0);
+}
+/* img {
+    width: 150px;
+    height: 80px;
+    
+    object-fit: none;
+    background-color: red;
+}
+
+#firstSprite {
+    object-position: 0px -100px;
+} */
