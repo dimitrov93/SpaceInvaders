@@ -1,21 +1,26 @@
 let scores = Number(document.getElementById("score").textContent);
-let tank = document.querySelector(".box");
+let tank = document.querySelector("#firstSprite");
 let bullet = document.getElementById("bullet");
+
+let tankCSS = getComputedStyle(tank);
+
+// let bulletCSS = getComputedStyle(bullet);
+// console.log(Number(bulletCSS.left.split('px')[0]));
 
 let moving = 50;
 // bullet param y
 
-window.localStorage.setItem("bulletSpeed", 40);
+window.localStorage.setItem("bulletBottom", 59);
 window.localStorage.setItem("bulletY", 60);
 window.localStorage.setItem("bulletX", 0);
 
 window.addEventListener("keydown", ({ key }) => {
   window.localStorage.setItem("Key", key);
 
-  var key = window.localStorage.getItem("Key");
+  let keyPressed = window.localStorage.getItem("Key");
 
   // console.log(key);
-  switch (key) {
+  switch (keyPressed) {
     case "ArrowLeft":
       moving--;
       tank.style.left = moving + "%";
@@ -25,11 +30,11 @@ window.addEventListener("keydown", ({ key }) => {
       tank.style.left = moving + "%";
       break;
     case " ":
-      if ((bullet.style.visibility = "hidden")) {
+      if ( window.localStorage.getItem('bulletY') == 60) {
+        bullet.style.left = Number(tankCSS.left.split("px")[0]) + "px";
         bullet.style.visibility = "visible";
+
         window.localStorage.setItem("bulletY", 61);
-      } else {
-        bullet.style.visibility = "hidden";
       }
       break;
 
@@ -57,15 +62,16 @@ function bulletMoving() {
   // or
   // bullet reaches the top of the screen
   // move the bullet
-  let speed = window.localStorage.getItem("bulletSpeed");
+  let speed = window.localStorage.getItem("bulletBottom");
   speed++;
   if (window.localStorage.getItem("bulletY") >= 61) {
     bullet.style.bottom = speed + "px";
   }
-  window.localStorage.setItem("bulletSpeed", speed);
-
+  window.localStorage.setItem("bulletBottom", speed);
   if (bullet.style.bottom == "736px") {
-    window.localStorage.setItem("bulletSpeed", 60);
+    window.localStorage.setItem("bulletBottom", 60);
     window.localStorage.setItem("bulletY", 60);
+    bullet.style.visibility = "hidden";
+
   }
 }

@@ -32,10 +32,15 @@ h1 {
 }
 
 #firstSprite {
-    width:113px;
+    width:94px;
     height: 60px;
     object-fit:none;
-    object-position: -10px -110px;
+    object-position:-27px -110px;
+
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%,0%);
 }
 
 #secondSprite {
@@ -54,9 +59,9 @@ h1 {
     height: 18px;
     object-fit:none;
     object-position: -409px -353px; /* left/right to top/bottom */
-    position: relative;
-    left: 70px;
-    bottom: 60px;
+    position: absolute;
+    left: 421px;
+    bottom: 62px;
     visibility: hidden;
 }
 /* img {
