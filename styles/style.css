@@ -50,14 +50,14 @@ h1 {
 }
 
 #bullet { 
-    width:53px;
-    height: 70px;
+    width:4px;
+    height: 18px;
     object-fit:none;
-    object-position: -400px -310px; /* left/right to top/bottom */
+    object-position: -409px -353px; /* left/right to top/bottom */
     position: relative;
-    left: 110px;
+    left: 70px;
     bottom: 60px;
-    visibility: visible;
+    visibility: hidden;
 }
 /* img {
     width: 150px;
