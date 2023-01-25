@@ -48,6 +48,17 @@ h1 {
     left: 50%;
     transform: translate(-60%,0);
 }
+
+#bullet { 
+    width:53px;
+    height: 70px;
+    object-fit:none;
+    object-position: -400px -310px; /* left/right to top/bottom */
+    position: relative;
+    left: 110px;
+    bottom: 60px;
+    visibility: hidden;
+}
 /* img {
     width: 150px;
     height: 80px;
