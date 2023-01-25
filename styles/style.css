@@ -57,7 +57,7 @@ h1 {
     position: relative;
     left: 110px;
     bottom: 60px;
-    visibility: hidden;
+    visibility: visible;
 }
 /* img {
     width: 150px;
