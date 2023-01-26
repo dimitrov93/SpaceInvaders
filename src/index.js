@@ -1,17 +1,27 @@
 let scores = Number(document.getElementById("score").textContent);
 let tank = document.querySelector("#firstSprite");
+let enemyTank = document.querySelector("#secondSprite");
 let bullet = document.getElementById("bullet");
 let eBullet = document.getElementById("enemyBullet");
 
 let tankCSS = getComputedStyle(tank);
 let enemyBulletCSS = getComputedStyle(eBullet);
+let enemyTankCSS = getComputedStyle(enemyTank);
 // let bulletCSS = getComputedStyle(bullet);
 // console.log(Number(bulletCSS.left.split('px')[0]));
-
+console.log(enemyTankCSS.left);
 let moving = 50;
 let bulletsSpeed = 3;
 // bullet param y
 
+setInterval(() => {
+  let num = Math.floor(Math.random() * 11)
+  if (num < 5) {
+    enemyTank.style.left = (Number(enemyTankCSS.left.split('px')[0]) - 20) + 'px'
+  } else {
+    enemyTank.style.left = (Number(enemyTankCSS.left.split('px')[0]) + 20) + 'px'
+  }
+}, 1000);
 
 
 window.localStorage.setItem("bulletBottom", 59);
@@ -91,7 +101,7 @@ function enemyBullet() {
     eBullet.style.top = speed + 'px'
   } 
 
-  if (speed >= 736) {
+  if (speed >= 730) {
     speed = 206
   }
 
