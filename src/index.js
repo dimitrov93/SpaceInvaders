@@ -95,8 +95,11 @@ setInterval(() => {
 let speed = 200;
 function enemyBullet() {
   // let speed = window.localStorage.getItem("bulletBottom");
+  // console.log(enemyTankCSS.left);
 
   if (window.localStorage.getItem('timer')) {
+    eBullet.style.left = Number(enemyTankCSS.left.split('px')[0] - 15) + 'px'
+
     speed+=bulletsSpeed
     eBullet.style.top = speed + 'px'
   } 
