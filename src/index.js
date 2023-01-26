@@ -1,14 +1,18 @@
 let scores = Number(document.getElementById("score").textContent);
 let tank = document.querySelector("#firstSprite");
 let bullet = document.getElementById("bullet");
+let eBullet = document.getElementById("enemyBullet");
 
 let tankCSS = getComputedStyle(tank);
-
+let enemyBulletCSS = getComputedStyle(eBullet);
 // let bulletCSS = getComputedStyle(bullet);
 // console.log(Number(bulletCSS.left.split('px')[0]));
 
 let moving = 50;
+let bulletsSpeed = 3;
 // bullet param y
+
+
 
 window.localStorage.setItem("bulletBottom", 59);
 window.localStorage.setItem("bulletY", 60);
@@ -30,7 +34,7 @@ window.addEventListener("keydown", ({ key }) => {
       tank.style.left = moving + "%";
       break;
     case " ":
-      if ( window.localStorage.getItem('bulletY') == 60) {
+      if (window.localStorage.getItem("bulletY") == 60) {
         bullet.style.left = Number(tankCSS.left.split("px")[0]) + "px";
         bullet.style.visibility = "visible";
 
@@ -53,25 +57,42 @@ setInterval(SpaceInvaders, 16);
 // This is the game Space Invaders
 function SpaceInvaders() {
   bulletMoving();
+  enemyBullet()
 }
 
 function bulletMoving() {
-  // Bullet Brain
-  // If bullet is active
-  // Until bullet meets a target
-  // or
-  // bullet reaches the top of the screen
-  // move the bullet
-  let speed = window.localStorage.getItem("bulletBottom");
-  speed++;
+  let speed = Number(window.localStorage.getItem("bulletBottom"));
   if (window.localStorage.getItem("bulletY") >= 61) {
+    speed += bulletsSpeed;
     bullet.style.bottom = speed + "px";
   }
   window.localStorage.setItem("bulletBottom", speed);
-  if (bullet.style.bottom == "736px") {
+  if (Number(window.localStorage.getItem("bulletBottom")) > 736 ) {
     window.localStorage.setItem("bulletBottom", 60);
     window.localStorage.setItem("bulletY", 60);
     bullet.style.visibility = "hidden";
-
   }
+}
+
+window.localStorage.setItem("timer", false);
+let timer = window.localStorage.getItem('timer')
+setInterval(() => {
+  timer = !timer;
+  window.localStorage.setItem("timer", timer);
+}, 5000);
+
+
+let speed = 200;
+function enemyBullet() {
+  // let speed = window.localStorage.getItem("bulletBottom");
+
+  if (window.localStorage.getItem('timer')) {
+    speed+=bulletsSpeed
+    eBullet.style.top = speed + 'px'
+  } 
+
+  if (speed >= 736) {
+    speed = 206
+  }
+
 }

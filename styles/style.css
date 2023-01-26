@@ -48,8 +48,8 @@ h1 {
     height: 60px;
     object-fit:none;
     object-position: 0px -10px;
-    position: relative;
-    top: 0px;
+    position: absolute;
+    top: 135px;
     left: 50%;
     transform: translate(-60%,0);
 }
@@ -63,6 +63,17 @@ h1 {
     left: 421px;
     bottom: 62px;
     visibility: hidden;
+}
+
+#enemyBullet {
+    width:4px;
+    height: 18px;
+    object-fit:none;
+    object-position: -409px -353px; /* left/right to top/bottom */
+    position: absolute;
+    left: 755px;
+    top: 206px;
+    visibility: visible;
 }
 /* img {
     width: 150px;
