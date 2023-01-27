@@ -3,6 +3,8 @@ let tank = document.querySelector("#firstSprite");
 let enemyTank = document.querySelector("#secondSprite");
 let bullet = document.getElementById("bullet");
 let eBullet = document.getElementById("enemyBullet");
+let firstLineEnemies = document.querySelector('.first_line_enemies')
+let secondLineEnemies = document.querySelector('.second_line_enemies')
 
 let tankCSS = getComputedStyle(tank);
 let enemyBulletCSS = getComputedStyle(eBullet);
@@ -14,6 +16,8 @@ let moving = 50;
 let bulletsSpeed = 3;
 // bullet param y
 
+
+// Enemy tank movement
 setInterval(() => {
   let num = Math.floor(Math.random() * 11)
   if (num < 5) {
@@ -86,20 +90,20 @@ function bulletMoving() {
 
 window.localStorage.setItem("timer", false);
 let timer = window.localStorage.getItem('timer')
-setInterval(() => {
+const interval = setInterval(() => {
   timer = !timer;
   window.localStorage.setItem("timer", timer);
 }, 5000);
 
 
 let speed = 200;
+
+
+
 function enemyBullet() {
-  // let speed = window.localStorage.getItem("bulletBottom");
-  // console.log(enemyTankCSS.left);
 
   if (window.localStorage.getItem('timer')) {
     eBullet.style.left = Number(enemyTankCSS.left.split('px')[0] - 15) + 'px'
-
     speed+=bulletsSpeed
     eBullet.style.top = speed + 'px'
   } 
@@ -109,3 +113,41 @@ function enemyBullet() {
   }
 
 }
+
+
+const map = [
+  ["1", "-", "-", "-","-", "-","-","-","-","-","-", "1"],
+  ["1", "*", "*", "*","*", "*","*","*","*","*","*", "1"],
+];
+
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
+
+
+map.forEach((row,j) => {
+  row.forEach((el,j) => {
+    switch (el) {
+      case "-":
+        const firstLineImg = document.createElement('img')
+        setAttributes(firstLineImg, {"src": "./assets/spriteSheet.jpg","class": "line__one__pic"});
+        firstLineEnemies.appendChild(firstLineImg)
+        break;
+
+        case "*":
+          const secondLineImg = document.createElement('img')
+          setAttributes(secondLineImg, 
+            {
+              "src": "./assets/spriteSheet.jpg",
+              "class": "line__second__pic"
+            });
+  
+            secondLineEnemies.appendChild(secondLineImg)
+          break;
+      default:
+        break;
+    }
+  })
+})

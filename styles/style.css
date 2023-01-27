@@ -29,37 +29,38 @@ h1 {
     position: absolute;
     bottom: 0px;
     left: 50%;
-    transform: translate(-50%,0%);
+    transform: translate(-50%, 0%);
 }
 
 #firstSprite {
-    width:94px;
+    width: 94px;
     height: 60px;
-    object-fit:none;
-    object-position:-27px -110px;
+    object-fit: none;
+    object-position: -27px -110px;
 
     position: absolute;
     bottom: 0px;
     left: 50%;
-    transform: translate(-50%,0%);
+    transform: translate(-50%, 0%);
 }
 
 #secondSprite {
-    width:150px;
+    width: 150px;
     height: 60px;
-    object-fit:none;
+    object-fit: none;
     object-position: 0px -10px;
     position: absolute;
     top: 135px;
     left: 50%;
-    transform: translate(-60%,0);
+    transform: translate(-60%, 0);
 }
 
-#bullet { 
-    width:4px;
+#bullet {
+    width: 4px;
     height: 18px;
-    object-fit:none;
-    object-position: -409px -353px; /* left/right to top/bottom */
+    object-fit: none;
+    object-position: -409px -353px;
+    /* left/right to top/bottom */
     position: absolute;
     left: 421px;
     bottom: 62px;
@@ -67,23 +68,45 @@ h1 {
 }
 
 #enemyBullet {
-    width:4px;
+    width: 4px;
     height: 18px;
-    object-fit:none;
-    object-position: -409px -353px; /* left/right to top/bottom */
+    object-fit: none;
+    object-position: -409px -353px;
+    /* left/right to top/bottom */
     position: absolute;
     left: 755px;
     top: 206px;
     visibility: visible;
 }
-/* img {
-    width: 150px;
-    height: 80px;
-    
-    object-fit: none;
-    background-color: red;
+
+.front_enemies {
+    display: flex;
+    flex-direction: column;
+}  
+
+.first_line_enemies,
+.second_line_enemies {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
 }
 
-#firstSprite {
-    object-position: 0px -100px;
-} */
+.line__one__pic {
+    position: relative;
+    top: 100px;
+    left: 50px;
+    width: 27%;
+    height: 66px;
+    object-fit: none;
+    object-position: -498px -477px;
+}
+
+.line__second__pic {
+    position: relative;
+    top: 140px;
+    left: 50px;
+    width: 27%;
+    height: 66px;
+    object-fit: none;
+    object-position: -394px -477px;
+}
