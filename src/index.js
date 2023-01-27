@@ -5,17 +5,25 @@ let bullet = document.getElementById("bullet");
 let eBullet = document.getElementById("enemyBullet");
 let firstLineEnemies = document.querySelector('.first_line_enemies')
 let secondLineEnemies = document.querySelector('.second_line_enemies')
+let livesCount = document.querySelector('.livesCount')
 
 let tankCSS = getComputedStyle(tank);
 let enemyBulletCSS = getComputedStyle(eBullet);
 let enemyTankCSS = getComputedStyle(enemyTank);
-// let bulletCSS = getComputedStyle(bullet);
-// console.log(Number(bulletCSS.left.split('px')[0]));
-console.log(enemyTankCSS.left);
+
 let moving = 50;
 let bulletsSpeed = 3;
-// bullet param y
 
+
+function myLivesCount() {
+  const lives = 3;
+  for (let i = 0; i < lives; i++) {
+    const livesImg = document.createElement('img')
+    setAttributes(livesImg, {"src": "./assets/spriteSheet.jpg","class": "livesImg"});
+    livesCount.appendChild(livesImg)
+  }
+}
+myLivesCount()
 
 // Enemy tank movement
 setInterval(() => {
@@ -70,6 +78,7 @@ setInterval(SpaceInvaders, 16);
 
 // This is the game Space Invaders
 function SpaceInvaders() {
+  
   bulletMoving();
   enemyBullet()
 }
