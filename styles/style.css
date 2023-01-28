@@ -76,7 +76,7 @@ h1 {
     position: absolute;
     left: 755px;
     top: 206px;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .front_enemies {
@@ -94,8 +94,8 @@ h1 {
 .line__one__pic {
     position: relative;
     top: 100px;
-    left: 50px;
-    width: 27%;
+    left: 90px;
+    width: 8%;
     height: 66px;
     object-fit: none;
     object-position: -498px -477px;
@@ -104,8 +104,8 @@ h1 {
 .line__second__pic {
     position: relative;
     top: 140px;
-    left: 50px;
-    width: 27%;
+    left: 90px;
+    width: 8%;
     height: 66px;
     object-fit: none;
     object-position: -394px -477px;
