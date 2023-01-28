@@ -1,4 +1,4 @@
-let scores = Number(document.getElementById("score").textContent);
+let scores = document.getElementById("score");
 let tank = document.querySelector("#firstSprite");
 let enemyTank = document.querySelector("#secondSprite");
 let bullet = document.getElementById("bullet");
@@ -13,6 +13,23 @@ let enemyTankCSS = getComputedStyle(enemyTank);
 
 let moving = 50;
 let bulletsSpeed = 3;
+
+
+function scoresCount() {
+  let counter = 0;
+  // let firstLine = document.querySelectorAll('.line__one__pic')
+  let secondLine = document.querySelectorAll('.line__second__pic')
+
+  for (let i = 0; i < secondLine.length; i++) {
+    if (secondLine[i].style[0]) {
+      counter+=10;
+      secondLine[i].style[0] = undefined
+    }
+  }
+  scores.innerHTML = counter;
+
+}
+
 
 // ------- Lives Count
 function myLivesCount() {
@@ -78,14 +95,58 @@ setInterval(SpaceInvaders, 16);
 function SpaceInvaders() {
   bulletMoving();
   enemyBullet();
+  scoresCount()
+
 }
 
 // Shooting a bullet
 function bulletMoving() {
+  let firstLiners = document.querySelectorAll('.line__one__pic')
+  
+  // console.log(firstLiners[0].style.visibility);
+  let _frontEnemyOne = document.querySelector('.line__second__pic')
+  let _firstEnemyWidth = _frontEnemyOne.offsetWidth;
+  let _firstEnemyHeight = _frontEnemyOne.offsetHeight;
+ 
+  let _bulletWidth = bullet.offsetWidth;
+  let _bulletHeight = bullet.offsetHeight;
+
+
+  let collider1;
+  let collider2;
+
   let speed = Number(window.localStorage.getItem("bulletBottom"));
+
   if (window.localStorage.getItem("bulletY") >= 61) {
     speed += bulletsSpeed;
     bullet.style.bottom = speed + "px";
+    _firstFrontEnemyPosX = _frontEnemyOne.offsetLeft
+    
+    collider1 = {
+        x: _frontEnemyOne.offsetLeft - _frontEnemyOne.scrollLeft,
+        y: _frontEnemyOne.offsetTop - _frontEnemyOne.scrollTop,
+        width: _firstEnemyWidth,
+        height: _firstEnemyHeight
+      }
+
+      collider2 = {
+        x: bullet.offsetLeft - bullet.scrollLeft,
+        y: bullet.offsetTop - bullet.scrollTop,
+        width: _bulletWidth,
+        height: _bulletHeight
+      }
+
+      if (collider1.x > collider2.x + collider2.width  ||
+          collider1.x + collider1.width < collider2.x  ||
+          collider1.y > collider2.y + collider2.height ||
+          collider1.y + collider1.height < collider2.y
+        ) {
+          // true
+      } else {
+        // false
+        _frontEnemyOne.style.visibility = 'hidden'
+        score += 10
+      }
   }
   window.localStorage.setItem("bulletBottom", speed);
   if (Number(window.localStorage.getItem("bulletBottom")) > 736) {
@@ -93,6 +154,11 @@ function bulletMoving() {
     window.localStorage.setItem("bulletY", 60);
     bullet.style.visibility = "hidden";
   }
+
+
+
+
+
 }
 
 
