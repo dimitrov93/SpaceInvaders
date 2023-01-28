@@ -34,8 +34,8 @@ function scoresCount() {
 
 
 // ------- Lives Count
+let lives = 3;
 function myLivesCount() {
-  const lives = 3;
   for (let i = 0; i < lives; i++) {
     const livesImg = document.createElement("img");
     setAttributes(livesImg, {
@@ -95,6 +95,7 @@ window.addEventListener("keydown", ({ key }) => {
 setInterval(SpaceInvaders, 16);
 
 function SpaceInvaders() {
+  
   bulletMoving();
   enemyBullet();
   scoresCount()
@@ -159,9 +160,7 @@ function bulletMoving() {
           bullet.style.visibility = "hidden";
           // score += 10
         }
-      
     }
-
   }
   window.localStorage.setItem("bulletBottom", speed);
   if (Number(window.localStorage.getItem("bulletBottom")) > 736) {
@@ -169,11 +168,6 @@ function bulletMoving() {
     window.localStorage.setItem("bulletY", 60);
     bullet.style.visibility = "hidden";
   }
-
-
-
-
-
 }
 
 
@@ -193,6 +187,42 @@ function enemyBullet() {
     eBullet.style.left = tankLeftOffset;
     speed += bulletsSpeed;
     eBullet.style.top = speed + "px";
+
+    let tankWidth = tank.offsetWidth;
+    let tankHeight = tank.offsetHeight;
+  
+    let _bulletWidth = eBullet.offsetWidth;
+    let _bulletHeight = eBullet.offsetHeight;
+  
+  
+    let collider1;
+    let collider2;
+
+    collider1 = {
+      x: tank.offsetLeft - tank.scrollLeft,
+      y: tank.offsetTop - tank.scrollTop,
+      width: tankWidth,
+      height: tankHeight
+    }
+
+    collider2 = {
+      x: eBullet.offsetLeft - eBullet.scrollLeft,
+      y: eBullet.offsetTop - eBullet.scrollTop,
+      width: _bulletWidth,
+      height: _bulletHeight
+    }
+
+    if (collider1.x > collider2.x + collider2.width  ||
+        collider1.x + collider1.width < collider2.x  ||
+        collider1.y > collider2.y + collider2.height ||
+        collider1.y + collider1.height < collider2.y
+      ) {
+        // true
+    } else {
+      // false
+      eBullet.style.top = 206 + 'px';
+      eBullet.style.visibility = "hidden";
+    }
   }
 
   if (speed >= 730) {
@@ -202,6 +232,8 @@ function enemyBullet() {
   }
 }
 
+
+// MAPING
 const map = [
   ["1", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "1"],
   ["1", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "1"],
