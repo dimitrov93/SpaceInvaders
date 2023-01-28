@@ -15,6 +15,8 @@ let moving = 50;
 let bulletsSpeed = 3;
 
 
+// Scores 
+
 function scoresCount() {
   let counter = 0;
   // let firstLine = document.querySelectorAll('.line__one__pic')
@@ -104,49 +106,62 @@ function bulletMoving() {
   let firstLiners = document.querySelectorAll('.line__one__pic')
   
   // console.log(firstLiners[0].style.visibility);
-  let _frontEnemyOne = document.querySelector('.line__second__pic')
-  let _firstEnemyWidth = _frontEnemyOne.offsetWidth;
-  let _firstEnemyHeight = _frontEnemyOne.offsetHeight;
+  let _frontEnemyOne = document.querySelectorAll('.line__second__pic')
+
+
  
-  let _bulletWidth = bullet.offsetWidth;
-  let _bulletHeight = bullet.offsetHeight;
-
-
-  let collider1;
-  let collider2;
-
   let speed = Number(window.localStorage.getItem("bulletBottom"));
 
   if (window.localStorage.getItem("bulletY") >= 61) {
     speed += bulletsSpeed;
     bullet.style.bottom = speed + "px";
-    _firstFrontEnemyPosX = _frontEnemyOne.offsetLeft
+
+
+    // Colission start
+
+    for (let i = 0; i < _frontEnemyOne.length; i++) {
+      let _firstEnemyWidth = _frontEnemyOne[i].offsetWidth;
+      let _firstEnemyHeight = _frontEnemyOne[i].offsetHeight;
+     
+      let _bulletWidth = bullet.offsetWidth;
+      let _bulletHeight = bullet.offsetHeight;
     
-    collider1 = {
-        x: _frontEnemyOne.offsetLeft - _frontEnemyOne.scrollLeft,
-        y: _frontEnemyOne.offsetTop - _frontEnemyOne.scrollTop,
-        width: _firstEnemyWidth,
-        height: _firstEnemyHeight
-      }
+    
+      let collider1;
+      let collider2;
 
-      collider2 = {
-        x: bullet.offsetLeft - bullet.scrollLeft,
-        y: bullet.offsetTop - bullet.scrollTop,
-        width: _bulletWidth,
-        height: _bulletHeight
-      }
+      _firstFrontEnemyPosX = _frontEnemyOne.offsetLeft
+    
+      collider1 = {
+          x: _frontEnemyOne[i].offsetLeft - _frontEnemyOne[i].scrollLeft,
+          y: _frontEnemyOne[i].offsetTop - _frontEnemyOne[i].scrollTop,
+          width: _firstEnemyWidth,
+          height: _firstEnemyHeight
+        }
+  
+        collider2 = {
+          x: bullet.offsetLeft - bullet.scrollLeft,
+          y: bullet.offsetTop - bullet.scrollTop,
+          width: _bulletWidth,
+          height: _bulletHeight
+        }
+  
+        if (collider1.x > collider2.x + collider2.width  ||
+            collider1.x + collider1.width < collider2.x  ||
+            collider1.y > collider2.y + collider2.height ||
+            collider1.y + collider1.height < collider2.y
+          ) {
+            // true
+        } else {
+          // false
+          _frontEnemyOne[i].style.visibility = 'hidden'
+          bullet.style.bottom = 60 + 'px';
+          bullet.style.visibility = "hidden";
+          // score += 10
+        }
+      
+    }
 
-      if (collider1.x > collider2.x + collider2.width  ||
-          collider1.x + collider1.width < collider2.x  ||
-          collider1.y > collider2.y + collider2.height ||
-          collider1.y + collider1.height < collider2.y
-        ) {
-          // true
-      } else {
-        // false
-        _frontEnemyOne.style.visibility = 'hidden'
-        score += 10
-      }
   }
   window.localStorage.setItem("bulletBottom", speed);
   if (Number(window.localStorage.getItem("bulletBottom")) > 736) {
@@ -219,6 +234,9 @@ map.forEach((row, j) => {
 
         secondLineEnemies.appendChild(secondLineImg);
         break;
+
+
+
       default:
         break;
     }
