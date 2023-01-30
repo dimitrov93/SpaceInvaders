@@ -5,7 +5,7 @@ let bullet = document.getElementById("bullet");
 let eBullet = document.getElementById("enemyBullet");
 let firstLineEnemies = document.querySelector(".first_line_enemies");
 let secondLineEnemies = document.querySelector(".second_line_enemies");
-let livesCount = document.querySelector(".livesCount");
+let livesCount = document.querySelectorAll(".livesCount");
 
 let tankCSS = getComputedStyle(tank);
 let enemyBulletCSS = getComputedStyle(eBullet);
@@ -41,18 +41,16 @@ function scoresCount() {
 
 
 // ------- Lives Count
-let lives = 3;
-function myLivesCount() {
-  for (let i = 0; i < lives; i++) {
+function myLivesCount(livesLeft) {
+  for (let i = 0; i < livesLeft; i++) {
     const livesImg = document.createElement("img");
     setAttributes(livesImg, {
       src: "./assets/spriteSheet.jpg",
       class: "livesImg",
     });
-    livesCount.appendChild(livesImg);
+    livesCount[0].appendChild(livesImg);
   }
 }
-myLivesCount();
 
 // Enemy tank movement
 setInterval(() => {
@@ -106,7 +104,17 @@ function SpaceInvaders() {
   bulletMoving();
   enemyBullet();
   scoresCount()
+  countLives()
 
+}
+
+function countLives() {
+  let lives = document.querySelectorAll('.livesImg')
+  
+  if (lives.length == 0) {
+   document.querySelector('.lostGame').style.visibility = 'visible'
+  }
+  
 }
 
 // Shooting a bullet
@@ -247,7 +255,10 @@ const interval = setInterval(() => {
   tankLeftOffset = enemyTank.offsetLeft + "px";
 }, 5000);
 
+myLivesCount(1);
+
 function enemyBullet() {
+
   if (timer) {
     eBullet.style.visibility = "visible";
     eBullet.style.left = tankLeftOffset;
@@ -283,13 +294,20 @@ function enemyBullet() {
         collider1.y > collider2.y + collider2.height ||
         collider1.y + collider1.height < collider2.y
       ) {
-        // true
+
     } else {
       // false
       eBullet.style.top = 206 + 'px';
-      eBullet.style.visibility = "hidden";
+      eBullet.style.visibility = "hidden"; 
+
+      if (requestAnimationFrame(SpaceInvaders) % 20 == 0) {
+        document.getElementById("livesId").lastElementChild.remove()
+      }
     }
   }
+
+
+
 
   if (speed >= 730) {
     timer = false;
