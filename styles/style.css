@@ -88,27 +88,26 @@ h1 {
 .second_line_enemies {
     display: flex;
     flex-direction: row;
-    gap: 4px;
+    gap: 40px;
+}
+
+.line__one__pic,
+.line__second__pic {
+    position: relative;
+    width: 5.2%;
+    height: 66px;
+    object-fit: none;
+    object-position: -399px -477px;
 }
 
 .line__one__pic {
-    position: relative;
     top: 100px;
     left: 90px;
-    width: 8%;
-    height: 66px;
-    object-fit: none;
-    object-position: -498px -477px;
 }
 
 .line__second__pic {
-    position: relative;
     top: 140px;
     left: 90px;
-    width: 8%;
-    height: 66px;
-    object-fit: none;
-    object-position: -394px -477px;
 }
 
 .livesImg {

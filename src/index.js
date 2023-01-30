@@ -19,13 +19,20 @@ let bulletsSpeed = 3;
 
 function scoresCount() {
   let counter = 0;
-  // let firstLine = document.querySelectorAll('.line__one__pic')
   let secondLine = document.querySelectorAll('.line__second__pic')
+  let firstLine = document.querySelectorAll('.line__one__pic')
 
   for (let i = 0; i < secondLine.length; i++) {
     if (secondLine[i].style[0]) {
       counter+=10;
       secondLine[i].style[0] = undefined
+    }
+  }
+
+  for (let i = 0; i < firstLine.length; i++) {
+    if (firstLine[i].style[0]) {
+      counter+=10;
+      firstLine[i].style[0] = undefined
     }
   }
   scores.innerHTML = counter;
@@ -104,25 +111,24 @@ function SpaceInvaders() {
 
 // Shooting a bullet
 function bulletMoving() {
-  let firstLiners = document.querySelectorAll('.line__one__pic')
   
   // console.log(firstLiners[0].style.visibility);
-  let _frontEnemyOne = document.querySelectorAll('.line__second__pic')
-
-
- 
+  let firstLiners = document.querySelectorAll('.line__second__pic')
+  let secondLiners = document.querySelectorAll('.line__one__pic')
   let speed = Number(window.localStorage.getItem("bulletBottom"));
 
+  let resetBulletCollision;
+
   if (window.localStorage.getItem("bulletY") >= 61) {
+
     speed += bulletsSpeed;
     bullet.style.bottom = speed + "px";
 
-
     // Colission start
 
-    for (let i = 0; i < _frontEnemyOne.length; i++) {
-      let _firstEnemyWidth = _frontEnemyOne[i].offsetWidth;
-      let _firstEnemyHeight = _frontEnemyOne[i].offsetHeight;
+    for (let i = 0; i < firstLiners.length; i++) {
+      let _firstEnemyWidth = firstLiners[i].offsetWidth;
+      let _firstEnemyHeight = firstLiners[i].offsetHeight;
      
       let _bulletWidth = bullet.offsetWidth;
       let _bulletHeight = bullet.offsetHeight;
@@ -131,11 +137,11 @@ function bulletMoving() {
       let collider1;
       let collider2;
 
-      _firstFrontEnemyPosX = _frontEnemyOne.offsetLeft
+      _firstFrontEnemyPosX = firstLiners.offsetLeft
     
       collider1 = {
-          x: _frontEnemyOne[i].offsetLeft - _frontEnemyOne[i].scrollLeft,
-          y: _frontEnemyOne[i].offsetTop - _frontEnemyOne[i].scrollTop,
+          x: firstLiners[i].offsetLeft - firstLiners[i].scrollLeft,
+          y: firstLiners[i].offsetTop - firstLiners[i].scrollTop,
           width: _firstEnemyWidth,
           height: _firstEnemyHeight
         }
@@ -155,15 +161,75 @@ function bulletMoving() {
             // true
         } else {
           // false
-          _frontEnemyOne[i].style.visibility = 'hidden'
-          bullet.style.bottom = 60 + 'px';
-          bullet.style.visibility = "hidden";
+          
+          if (firstLiners[i].style.visibility == 'hidden') {
+
+            continue
+          } else {
+            bullet.style.visibility = "hidden";
+            firstLiners[i].style.visibility = 'hidden'
+            resetBulletCollision = true;
+          }
+          // score += 10
+        }
+    }
+
+    for (let i = 0; i < secondLiners.length; i++) {
+      let _firstEnemyWidth = secondLiners[i].offsetWidth;
+      let _firstEnemyHeight = secondLiners[i].offsetHeight;
+     
+      let _bulletWidth = bullet.offsetWidth;
+      let _bulletHeight = bullet.offsetHeight;
+    
+    
+      let collider1;
+      let collider2;
+
+      _firstFrontEnemyPosX = secondLiners.offsetLeft
+    
+      collider1 = {
+          x: secondLiners[i].offsetLeft - secondLiners[i].scrollLeft,
+          y: secondLiners[i].offsetTop - secondLiners[i].scrollTop,
+          width: _firstEnemyWidth,
+          height: _firstEnemyHeight
+        }
+  
+        collider2 = {
+          x: bullet.offsetLeft - bullet.scrollLeft,
+          y: bullet.offsetTop - bullet.scrollTop,
+          width: _bulletWidth,
+          height: _bulletHeight
+        }
+  
+        if (collider1.x > collider2.x + collider2.width  ||
+            collider1.x + collider1.width < collider2.x  ||
+            collider1.y > collider2.y + collider2.height ||
+            collider1.y + collider1.height < collider2.y
+          ) {
+            // true
+        } else {
+          // false
+          
+          if (secondLiners[i].style.visibility == 'hidden') {
+
+            continue
+          } else {
+            bullet.style.visibility = "hidden";
+            secondLiners[i].style.visibility = 'hidden'
+            resetBulletCollision = true;
+          }
           // score += 10
         }
     }
   }
   window.localStorage.setItem("bulletBottom", speed);
   if (Number(window.localStorage.getItem("bulletBottom")) > 736) {
+    window.localStorage.setItem("bulletBottom", 60);
+    window.localStorage.setItem("bulletY", 60);
+    bullet.style.visibility = "hidden";
+  }
+
+  if (resetBulletCollision) {
     window.localStorage.setItem("bulletBottom", 60);
     window.localStorage.setItem("bulletY", 60);
     bullet.style.visibility = "hidden";
