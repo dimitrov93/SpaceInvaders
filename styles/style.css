@@ -8,11 +8,13 @@ body {
 h1 {
     justify-content: center;
     text-align: center;
+    margin: 10px;
 }
 
 .nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 0px 70px;
 }
 
 #firstSprite {
@@ -33,7 +35,7 @@ h1 {
     object-fit: none;
     object-position: 0px -10px;
     position: absolute;
-    top: 135px;
+    top: 115px;
     left: 50%;
     transform: translate(-60%, 0);
 }
@@ -94,16 +96,34 @@ h1 {
     left: 90px;
 }
 
+.lives {
+    display: flex;
+    flex-direction: row;
+    gap: 24px
+}
+
 .livesImg {
     width: 28px;
     height: 17px;
     object-fit: none;
     object-position: -276px -229px;
 }
+.enemyLivesCount,
+.livesCount {
+    position: relative;
+    top: 2px;
+}
 
+.enemyLiveImg {
+    width: 48px;
+    height: 17px;
+    object-fit: none;
+    object-position: -218px -229px;
+}
+
+.winGame,
 .lostGame {
     position: relative;
-    background-color: red;
     width: 100%;
     height: 100px;
     display: flex;
@@ -112,10 +132,27 @@ h1 {
     visibility: hidden;
 }
 
+.lostGame {
+    background-color: red;
+}
+
+.winGame {
+    background-color: rgb(205, 246, 158);
+}
+
+.winGame h1 {
+    font-size: 70px;
+    background: #121FCF;
+    background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .lostGame h1 {
     font-size: 70px;
     background: #FCEABB;
     background: linear-gradient(to right, #FCEABB 0%, #FCCD4D 50%, #F8B500 51%, #FBDF93 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    pointer-events: none; 
 }
