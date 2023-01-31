@@ -83,17 +83,20 @@ h1 {
     width: 6.2%;
     height: 66px;
     object-fit: none;
-    object-position: -399px -477px;
 }
 
 .line__one__pic {
     top: 100px;
     left: 90px;
+    object-position: -399px -477px;
+
 }
 
 .line__second__pic {
     top: 140px;
     left: 90px;
+    object-position: -499px -477px;
+
 }
 
 .lives {
