@@ -14,6 +14,7 @@ let enemyTankCSS = getComputedStyle(enemyTank);
 let moving = 50;
 let bulletsSpeed = 3;
 
+var intervalID;
 
 // Scores 
 
@@ -21,18 +22,16 @@ function scoresCount() {
   let counter = 0;
   let secondLine = document.querySelectorAll('.line__second__pic')
   let firstLine = document.querySelectorAll('.line__one__pic')
-
+  
   for (let i = 0; i < secondLine.length; i++) {
-    if (secondLine[i].style[0]) {
+    if (secondLine[i].style[1]) {
       counter+=10;
-      secondLine[i].style[0] = undefined
     }
   }
 
   for (let i = 0; i < firstLine.length; i++) {
-    if (firstLine[i].style[0]) {
+    if (firstLine[i].style[1]) {
       counter+=10;
-      firstLine[i].style[0] = undefined
     }
   }
   scores.innerHTML = counter;
@@ -51,9 +50,12 @@ function myLivesCount(livesLeft) {
     livesCount[0].appendChild(livesImg);
   }
 }
+myLivesCount(3);
 
+let movementCounter = 1;
 // Enemy tank movement
-setInterval(() => {
+let enemeyMovemenet = setInterval(() => {
+
   let num = Math.floor(Math.random() * 11);
   if (num < 5) {
     enemyTank.style.left = Number(enemyTankCSS.left.split("px")[0]) - 20 + "px";
@@ -61,6 +63,31 @@ setInterval(() => {
     enemyTank.style.left = Number(enemyTankCSS.left.split("px")[0]) + 20 + "px";
   }
 }, 1000);
+
+let frontEnemiesMovement = setInterval(() => {
+  let num = Math.floor(Math.random() * 11);
+  let firstFrontLiners = document.querySelectorAll('.line__one__pic')
+  let frontLinersMovement = document.querySelectorAll('.line__second__pic')
+
+  if (num < 5) {
+    for (const el of firstFrontLiners) {
+      el.style.left = 90 + movementCounter + 'px'
+    }
+    for (const el of frontLinersMovement) {
+      el.style.left = 90 - movementCounter + 'px'
+    }
+    movementCounter+=2
+  } else {
+    for (const el of firstFrontLiners) {
+      el.style.left = 90 - movementCounter + 'px'
+    }
+
+    for (const el of frontLinersMovement) {
+      el.style.left = 90 + movementCounter + 'px'
+    }
+    movementCounter-=2
+  }
+}, 2000);
 
 window.localStorage.setItem("bulletBottom", 59);
 window.localStorage.setItem("bulletY", 60);
@@ -97,24 +124,27 @@ window.addEventListener("keydown", ({ key }) => {
 });
 
 // GAME LOOP
-setInterval(SpaceInvaders, 16);
 
 function SpaceInvaders() {
-  
   bulletMoving();
   enemyBullet();
   scoresCount()
   countLives()
-
+}
+function start() {
+  intervalID =  setInterval(SpaceInvaders, 16);
 }
 
-function countLives() {
+start()
+
+function countLives(e) {
   let lives = document.querySelectorAll('.livesImg')
   
   if (lives.length == 0) {
    document.querySelector('.lostGame').style.visibility = 'visible'
+   clearInterval(intervalID)
+   clearInterval(enemeyMovemenet)
   }
-  
 }
 
 // Shooting a bullet
@@ -255,7 +285,6 @@ const interval = setInterval(() => {
   tankLeftOffset = enemyTank.offsetLeft + "px";
 }, 5000);
 
-myLivesCount(1);
 
 function enemyBullet() {
 
