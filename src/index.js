@@ -317,7 +317,7 @@ function bulletMoving() {
 
 
   window.localStorage.setItem("bulletBottom", speed);
-  if (Number(window.localStorage.getItem("bulletBottom")) > 736) {
+  if (Number(window.localStorage.getItem("bulletBottom")) > 936) {
     window.localStorage.setItem("bulletBottom", 60);
     window.localStorage.setItem("bulletY", 60);
     bullet.style.visibility = "hidden";
@@ -387,7 +387,7 @@ function enemyBullet() {
     }
   }
 
-  if (speed >= 730) {
+  if (speed >= 910) {
     timer = false;
     speed = 206;
     eBullet.style.visibility = "hidden";
